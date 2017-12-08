@@ -1,0 +1,25 @@
+{
+  "name": "oxid-community/adminsearch",
+  "description": "",
+  "type": "oxideshop-module",
+  "keywords": [
+    "oxid",
+    "modules",
+    "admin",
+    "search"
+  ],
+  "homepage": "https://github.com/OXIDprojects/adminsearch",
+  "license": [
+    "GNU"
+  ],
+  "autoload": {
+    "psr-4": {
+      "OxidCommunity\\AdminSearch\\": "../../../source/modules/oxcom/adminsearch"
+    }
+  },
+  "extra": {
+    "oxideshop": {
+      "target-directory": "oxcom/adminsearch"
+    }
+  }
+}
