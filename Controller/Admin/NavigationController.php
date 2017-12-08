@@ -54,7 +54,7 @@ class NavigationController extends NavigationController_parent
         $sViewName = $this->_sViewNameGenerator->getViewName("oxarticles");
         $sSql = "SELECT oxid, CONCAT(oxtitle, '', oxvarselect) FROM $sViewName WHERE CONCAT(oxtitle, '', oxvarselect) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
-        return $this->_getOxcomAdminSearchData($sSql);
+        return $this->_getOxcomAdminSearchData($sSql, 'article');
     }
 
     /**
@@ -67,7 +67,7 @@ class NavigationController extends NavigationController_parent
         $sViewName = $this->_sViewNameGenerator->getViewName("oxcategories");
         $sSql = "SELECT oxid, oxtitle FROM $sViewName WHERE oxtitle LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
-        return $this->_getOxcomAdminSearchData($sSql);
+        return $this->_getOxcomAdminSearchData($sSql, 'category');
     }
 
     /**
@@ -80,7 +80,7 @@ class NavigationController extends NavigationController_parent
         $sViewName = $this->_sViewNameGenerator->getViewName("oxcontents");
         $sSql = "SELECT oxid, oxtitle FROM $sViewName WHERE oxtitle LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
-        return $this->_getOxcomAdminSearchData($sSql);
+        return $this->_getOxcomAdminSearchData($sSql, 'admin_content');
     }
 
     /**
@@ -93,7 +93,7 @@ class NavigationController extends NavigationController_parent
         $sViewName = $this->_sViewNameGenerator->getViewName("oxorder");
         $sSql = "SELECT oxid, CONCAT('#', oxordernr, ' ', oxbilllname, ', ', oxbillfname) FROM $sViewName WHERE CONCAT(oxbillfname, ' ', oxbilllname, ' ', oxordernr, ' ', oxbillemail) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
-        return $this->_getOxcomAdminSearchData($sSql);
+        return $this->_getOxcomAdminSearchData($sSql, 'admin_order');
     }
 
     /**
@@ -106,7 +106,7 @@ class NavigationController extends NavigationController_parent
         $sViewName = $this->_sViewNameGenerator->getViewName("oxuser");
         $sSql = "SELECT oxid, CONCAT(oxlname, ', ', oxfname, ' (', oxcustnr, ')') FROM $sViewName WHERE CONCAT(oxlname, ' ', oxfname, ' ', oxcustnr, ' ', oxusername) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
-        return $this->_getOxcomAdminSearchData($sSql);
+        return $this->_getOxcomAdminSearchData($sSql, 'admin_user');
     }
 
     /**
@@ -116,14 +116,14 @@ class NavigationController extends NavigationController_parent
      *
      * @return array
      */
-    protected function _getOxcomAdminSearchData($sSql = '')
+    protected function _getOxcomAdminSearchData($sSql = '', $sType = '')
     {
         $aData = [];
         $oDbRes = \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->select($sSql);
         if ($oDbRes != false && $oDbRes->count() > 0) {
             while (!$oDbRes->EOF) {
                 $aField = $oDbRes->getFields();
-                $aData[] = ['name' => $aField[1], 'oxid' => $aField[0]];
+                $aData[] = ['name' => $aField[1], 'oxid' => $aField[0], 'type' => $sType];
                 $oDbRes->fetchRow();
             }
         }
