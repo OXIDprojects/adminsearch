@@ -76,8 +76,8 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchArticles()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxarticles");
-        $sSql = "SELECT oxid, CONCAT(oxtitle, '', oxvarselect, ' (', oxartnum, ')') FROM $sViewName WHERE CONCAT(oxtitle, '', oxvarselect) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
-
+        $sSql = "SELECT oxid, CONCAT(oxtitle, '', oxvarselect, ' (', oxartnum, ')') FROM $sViewName WHERE CONCAT(oxtitle, '', oxvarselect, oxartnum) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        
         return $this->_getOxcomAdminSearchData($sSql, 'article');
     }
 
