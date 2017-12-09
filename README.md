@@ -18,6 +18,11 @@ Installation
 composer require oxid-community/adminsearch
 ```
 
+Screenshot
+
+![OXID Adminsuche](http://screens.tabsl.eu/6378656d54d50d4cc2ebf5eb8df63c.png)
+
+
 Changelog
 
 	2017-12-09	1.0.0	Module release
