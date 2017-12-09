@@ -25,4 +25,5 @@ Screenshot
 
 Changelog
 
+	2017-12-09	1.0.1	Translation, article search oxartnum
 	2017-12-09	1.0.0	Module release
