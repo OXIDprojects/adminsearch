@@ -24,4 +24,13 @@ $aLang = [
     'OXCOM_ADMINSEARCH_MODULES'         => 'Modules',
     'OXCOM_ADMINSEARCH_MODULE_ACTIVE'   => 'active',
     'OXCOM_ADMINSEARCH_MODULE_INACTIVE' => 'inactive',
+    'SHOP_MODULE_GROUP_oxcom_adminsearch_main' => 'General settings',
+    'SHOP_MODULE_blOxComAdminSearchShowArticles' => 'Search articles',
+    'SHOP_MODULE_blOxComAdminSearchShowCategories' => 'Search categories',
+    'SHOP_MODULE_blOxComAdminSearchShowCmsPages' => 'Search CMS pages',
+    'SHOP_MODULE_blOxComAdminSearchShowOrders' => 'Search orders',
+    'SHOP_MODULE_blOxComAdminSearchShowUsers' => 'Search users',
+    'SHOP_MODULE_blOxComAdminSearchShowVendors' => 'Search vendors',
+    'SHOP_MODULE_blOxComAdminSearchShowManufacturers' => 'Search manufacturers',
+    'SHOP_MODULE_blOxComAdminSearchShowModules' => 'Search modules',
 ];
