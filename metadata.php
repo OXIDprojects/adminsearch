@@ -1,4 +1,11 @@
 <?php
+/**
+ * @package   oxcom_adminsearch
+ * @category  OXID Module
+ * @license   MIT License http://opensource.org/licenses/MIT
+ * @link      https://github.com/OXIDprojects/adminsearch
+ * @version   1.0.0
+ */
 
 /**
  * Metadata version
@@ -12,14 +19,12 @@ $aModule = [
     'id'          => 'oxcom_adminsearch',
     'title'       => 'OXID Commumity Adminsuche',
     'description' => [
-        'de' => '',
-        'en' => ''
+        'de' => 'Globale Suche im Shop-Admin',
+        'en' => 'Global search shop admin'
     ],
-    'thumbnail'   => '',
     'version'     => '1.0.0',
     'author'      => 'OXID Community',
-    'url'         => '',
-    'email'       => '',
+    'url'         => 'https://github.com/OXIDprojects/adminsearch',
     'extend'      => [
         \OxidEsales\Eshop\Application\Controller\Admin\NavigationController::class => \OxidCommunity\AdminSearch\Controller\Admin\NavigationController::class,
     ],
@@ -28,5 +33,14 @@ $aModule = [
     'blocks'      => [
         ['template' => 'navigation.tpl', 'block' => 'admin_navigation_menustructure', 'file' => '/views/blocks/admin_navigation_menustructure.tpl'],
     ],
-    'settings'    => [],
+    'settings'    => [
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowArticles', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowCategories', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowCmsPages', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowOrders', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowUsers', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowVendors', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowManufacturers', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowModules', 'type' => 'bool', 'value' => true],
+    ],
 ];

@@ -1,6 +1,15 @@
 <?php
+/**
+ * @package   oxcom_adminsearch
+ * @category  OXID Module
+ * @license   MIT License http://opensource.org/licenses/MIT
+ * @link      https://github.com/OXIDprojects/adminsearch
+ * @version   1.0.0
+ */
 
 namespace OxidCommunity\AdminSearch\Controller\Admin;
+
+use OxidEsales\Eshop\Core\Registry;
 
 /**
  * Class NavigationController
@@ -26,22 +35,37 @@ class NavigationController extends NavigationController_parent
     public function __construct()
     {
         parent::__construct();
-        $this->_sViewNameGenerator = \OxidEsales\Eshop\Core\Registry::get(\OxidEsales\Eshop\Core\TableViewNameGenerator::class);
-        $this->_sQueryName = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter("name");
+        $this->_sViewNameGenerator = Registry::get(\OxidEsales\Eshop\Core\TableViewNameGenerator::class);
+        $this->_sQueryName = Registry::getConfig()->getRequestParameter("name");
     }
 
     /**
-     * Gets search results for frontend
+     * Gets search results for template
      */
     public function getOxcomAdminSearchResults()
     {
-        $test["articles"] = $this->_getOxcomAdminSearchArticles();
-        $test["categories"] = $this->_getOxcomAdminSearchCategories();
-        $test["cmspages"] = $this->_getOxcomAdminSearchCmsPages();
-        $test["orders"] = $this->_getOxcomAdminSearchOrders();
-        $test["users"] = $this->_getOxcomAdminSearchUsers();
-        echo json_encode($test);
+        $aData["articles"] = $this->_getOxcomAdminSearchArticles();
+        $aData["categories"] = $this->_getOxcomAdminSearchCategories();
+        $aData["cmspages"] = $this->_getOxcomAdminSearchCmsPages();
+        $aData["orders"] = $this->_getOxcomAdminSearchOrders();
+        $aData["users"] = $this->_getOxcomAdminSearchUsers();
+        $aData["vendors"] = $this->_getOxcomAdminSearchVendors();
+        $aData["manufacturers"] = $this->_getOxcomAdminSearchManufacturers();
+        $aData["modules"] = $this->_getOxcomAdminSearchModules();
+        echo json_encode($aData);
         exit;
+    }
+
+    /**
+     * Gets module config param for template
+     *
+     * @param string $sParam
+     *
+     * @return object
+     */
+    public function getOxcomAdminSearchConfigParam($sParam = '')
+    {
+        return Registry::getConfig()->getShopConfVar($sParam, Registry::getConfig()->getShopId(), 'module:oxcom_adminsearch');
     }
 
     /**
@@ -52,7 +76,7 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchArticles()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxarticles");
-        $sSql = "SELECT oxid, CONCAT(oxtitle, '', oxvarselect) FROM $sViewName WHERE CONCAT(oxtitle, '', oxvarselect) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        $sSql = "SELECT oxid, CONCAT(oxtitle, '', oxvarselect, ' (', oxartnum, ')') FROM $sViewName WHERE CONCAT(oxtitle, '', oxvarselect) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'article');
     }
@@ -107,6 +131,51 @@ class NavigationController extends NavigationController_parent
         $sSql = "SELECT oxid, CONCAT(oxlname, ', ', oxfname, ' (', oxcustnr, ')') FROM $sViewName WHERE CONCAT(oxlname, ' ', oxfname, ' ', oxcustnr, ' ', oxusername) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'admin_user');
+    }
+
+    /**
+     * Gets search vendors data
+     *
+     * @return array
+     */
+    protected function _getOxcomAdminSearchVendors()
+    {
+        $sViewName = $this->_sViewNameGenerator->getViewName("oxvendor");
+        $sSql = "SELECT oxid, oxtitle FROM $sViewName WHERE oxtitle LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+
+        return $this->_getOxcomAdminSearchData($sSql, 'vendor');
+    }
+
+    /**
+     * Gets search manufacturers data
+     *
+     * @return array
+     */
+    protected function _getOxcomAdminSearchManufacturers()
+    {
+        $sViewName = $this->_sViewNameGenerator->getViewName("oxmanufacturers");
+        $sSql = "SELECT oxid, oxtitle FROM $sViewName WHERE oxtitle LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+
+        return $this->_getOxcomAdminSearchData($sSql, 'manufacturer');
+    }
+
+    /**
+     * Gets search modules data
+     *
+     * @return array
+     */
+    protected function _getOxcomAdminSearchModules()
+    {
+        $aData = [];
+        $oModules = oxNew(\OxidEsales\Eshop\Core\Module\ModuleList::class);
+        $aModules = $oModules->getModulePaths();
+        foreach ($aModules as $sKey => $sValue) {
+            $oModule = oxNew(\OxidEsales\Eshop\Core\Module\Module::class);
+            $oModule->load($sKey);
+            $aData[] = ['name' => $oModule->getTitle() . ' (' . ($oModule->isActive() ? Registry::getLang()->translateString("OXCOM_ADMINSEARCH_MODULE_ACTIVE") : Registry::getLang()->translateString("OXCOM_ADMINSEARCH_MODULE_INACTIVE")) . ')', 'oxid' => $sKey, 'type' => 'module'];
+        }
+
+        return $aData;
     }
 
     /**
