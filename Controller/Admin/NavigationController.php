@@ -4,7 +4,7 @@
  * @category  OXID Module
  * @license   MIT License http://opensource.org/licenses/MIT
  * @link      https://github.com/OXIDprojects/adminsearch
- * @version   1.0.0
+ * @version   1.0.2
  */
 
 namespace OxidCommunity\AdminSearch\Controller\Admin;
@@ -44,14 +44,30 @@ class NavigationController extends NavigationController_parent
      */
     public function getOxcomAdminSearchResults()
     {
-        $aData["articles"] = $this->_getOxcomAdminSearchArticles();
-        $aData["categories"] = $this->_getOxcomAdminSearchCategories();
-        $aData["cmspages"] = $this->_getOxcomAdminSearchCmsPages();
-        $aData["orders"] = $this->_getOxcomAdminSearchOrders();
-        $aData["users"] = $this->_getOxcomAdminSearchUsers();
-        $aData["vendors"] = $this->_getOxcomAdminSearchVendors();
-        $aData["manufacturers"] = $this->_getOxcomAdminSearchManufacturers();
-        $aData["modules"] = $this->_getOxcomAdminSearchModules();
+        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowArticles")) {
+            $aData["articles"] = $this->_getOxcomAdminSearchArticles();
+        }
+        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowCategories")) {
+            $aData["categories"] = $this->_getOxcomAdminSearchCategories();
+        }
+        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowCmsPages")) {
+            $aData["cmspages"] = $this->_getOxcomAdminSearchCmsPages();
+        }
+        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowOrders")) {
+            $aData["orders"] = $this->_getOxcomAdminSearchOrders();
+        }
+        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowUsers")) {
+            $aData["users"] = $this->_getOxcomAdminSearchUsers();
+        }
+        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowVendors")) {
+            $aData["vendors"] = $this->_getOxcomAdminSearchVendors();
+        }
+        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowManufacturers")) {
+            $aData["manufacturers"] = $this->_getOxcomAdminSearchManufacturers();
+        }
+        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowModules")) {
+            $aData["modules"] = $this->_getOxcomAdminSearchModules();
+        }
         echo json_encode($aData);
         exit;
     }
@@ -77,7 +93,7 @@ class NavigationController extends NavigationController_parent
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxarticles");
         $sSql = "SELECT oxid, CONCAT(oxtitle, '', oxvarselect, ' (', oxartnum, ')') FROM $sViewName WHERE CONCAT(oxtitle, '', oxvarselect, oxartnum) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
-        
+
         return $this->_getOxcomAdminSearchData($sSql, 'article');
     }
 

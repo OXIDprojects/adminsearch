@@ -20,10 +20,11 @@ composer require oxid-community/adminsearch
 
 Screenshot
 
-![OXID Adminsuche](http://screens.tabsl.eu/6378656d54d50d4cc2ebf5eb8df63c.png)
+![OXID Adminsuche](screenshot.png)
 
 
 Changelog
 
-	2017-12-09	1.0.1	Translation, article search oxartnum
-	2017-12-09	1.0.0	Module release
+	2017-12-10	1.0.2	fix search class using module settings 
+	2017-12-09	1.0.1	add translation, fix article search oxartnum
+	2017-12-09	1.0.0	module release

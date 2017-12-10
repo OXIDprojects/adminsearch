@@ -4,7 +4,7 @@
  * @category  OXID Module
  * @license   MIT License http://opensource.org/licenses/MIT
  * @link      https://github.com/OXIDprojects/adminsearch
- * @version   1.0.0
+ * @version   1.0.2
  */
 
 /**

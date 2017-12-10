@@ -56,17 +56,17 @@
                     header: "[{ oxmultilang ident="OXCOM_ADMINSEARCH_CMSPAGES" }]"
                 }
             [{ /if }]
-            [{ if $oView->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowUsers") }]
-                ,{
-                    listLocation: "users",
-                    header: "[{ oxmultilang ident="OXCOM_ADMINSEARCH_USERS" }]"
-                }
-            [{ /if }]
             [{ if $oView->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowOrders") }]
                 ,{
                     listLocation: "orders",
                     header: "[{ oxmultilang ident="OXCOM_ADMINSEARCH_ORDERS" }]"
                 }
+            [{ /if }]
+            [{ if $oView->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowUsers") }]
+            ,{
+                listLocation: "users",
+                header: "[{ oxmultilang ident="OXCOM_ADMINSEARCH_USERS" }]"
+            }
             [{ /if }]
             [{ if $oView->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowVendors") }]
                 ,{
