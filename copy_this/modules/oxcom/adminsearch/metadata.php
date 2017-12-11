@@ -4,29 +4,29 @@
  * @category  OXID Module
  * @license   MIT License http://opensource.org/licenses/MIT
  * @link      https://github.com/OXIDprojects/adminsearch
- * @version   1.0.2
+ * @version   1.0.3-oxid4
  */
 
 /**
  * Metadata version
  */
-$sMetadataVersion = '2.0';
+$sMetadataVersion = '1.1';
 
 /**
  * Module information
  */
 $aModule = [
     'id'          => 'oxcom_adminsearch',
-    'title'       => 'OXID Commumity Adminsuche',
+    'title'       => 'OXID Community Adminsuche',
     'description' => [
         'de' => 'Globale Suche im Shop-Admin',
         'en' => 'Global search shop admin'
     ],
-    'version'     => '1.0.0',
+    'version'     => '1.0.3 (for OXID 4)',
     'author'      => 'OXID Community',
     'url'         => 'https://github.com/OXIDprojects/adminsearch',
     'extend'      => [
-        \OxidEsales\Eshop\Application\Controller\Admin\NavigationController::class => \OxidCommunity\AdminSearch\Controller\Admin\NavigationController::class,
+        'navigation' => 'oxcom/adminsearch/Controller/Admin/NavigationController',
     ],
     'controllers' => [],
     'templates'   => [],
