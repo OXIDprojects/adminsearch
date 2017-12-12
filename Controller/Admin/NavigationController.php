@@ -4,7 +4,7 @@
  * @category  OXID Module
  * @license   MIT License http://opensource.org/licenses/MIT
  * @link      https://github.com/OXIDprojects/adminsearch
- * @version   1.0.2
+ * @version   1.0.3
  */
 
 namespace OxidCommunity\AdminSearch\Controller\Admin;
@@ -44,29 +44,32 @@ class NavigationController extends NavigationController_parent
      */
     public function getOxcomAdminSearchResults()
     {
-        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowArticles")) {
-            $aData["articles"] = $this->_getOxcomAdminSearchArticles();
-        }
-        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowCategories")) {
-            $aData["categories"] = $this->_getOxcomAdminSearchCategories();
-        }
-        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowCmsPages")) {
-            $aData["cmspages"] = $this->_getOxcomAdminSearchCmsPages();
-        }
-        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowOrders")) {
-            $aData["orders"] = $this->_getOxcomAdminSearchOrders();
-        }
-        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowUsers")) {
-            $aData["users"] = $this->_getOxcomAdminSearchUsers();
-        }
-        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowVendors")) {
-            $aData["vendors"] = $this->_getOxcomAdminSearchVendors();
-        }
-        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowManufacturers")) {
-            $aData["manufacturers"] = $this->_getOxcomAdminSearchManufacturers();
-        }
-        if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowModules")) {
-            $aData["modules"] = $this->_getOxcomAdminSearchModules();
+        $aData = [];
+        if (strlen($this->_sQueryName) > 2) {
+            if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowArticles")) {
+                $aData["articles"] = $this->_getOxcomAdminSearchArticles();
+            }
+            if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowCategories")) {
+                $aData["categories"] = $this->_getOxcomAdminSearchCategories();
+            }
+            if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowCmsPages")) {
+                $aData["cmspages"] = $this->_getOxcomAdminSearchCmsPages();
+            }
+            if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowOrders")) {
+                $aData["orders"] = $this->_getOxcomAdminSearchOrders();
+            }
+            if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowUsers")) {
+                $aData["users"] = $this->_getOxcomAdminSearchUsers();
+            }
+            if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowVendors")) {
+                $aData["vendors"] = $this->_getOxcomAdminSearchVendors();
+            }
+            if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowManufacturers")) {
+                $aData["manufacturers"] = $this->_getOxcomAdminSearchManufacturers();
+            }
+            if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowModules")) {
+                $aData["modules"] = $this->_getOxcomAdminSearchModules();
+            }
         }
         echo json_encode($aData);
         exit;
@@ -188,7 +191,10 @@ class NavigationController extends NavigationController_parent
         foreach ($aModules as $sKey => $sValue) {
             $oModule = oxNew(\OxidEsales\Eshop\Core\Module\Module::class);
             $oModule->load($sKey);
-            $aData[] = ['name' => $oModule->getTitle() . ' (' . ($oModule->isActive() ? Registry::getLang()->translateString("OXCOM_ADMINSEARCH_MODULE_ACTIVE") : Registry::getLang()->translateString("OXCOM_ADMINSEARCH_MODULE_INACTIVE")) . ')', 'oxid' => $sKey, 'type' => 'module'];
+            $sTitle = strip_tags($oModule->getTitle());
+            if (strstr(strtolower($sTitle), strtolower($this->_sQueryName))) {
+                $aData[] = ['name' => $sTitle . ' (' . ($oModule->isActive() ? Registry::getLang()->translateString("OXCOM_ADMINSEARCH_MODULE_ACTIVE") : Registry::getLang()->translateString("OXCOM_ADMINSEARCH_MODULE_INACTIVE")) . ')', 'oxid' => $sKey, 'type' => 'module'];
+            }
         }
 
         return $aData;

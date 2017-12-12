@@ -27,6 +27,7 @@ composer require oxid-community/adminsearch
 
 # Changelog
 
+	2017-12-12  1.0.3   typo module title, fix module search
 	2017-12-10	1.0.2	fix search class using module settings 
 	2017-12-09	1.0.1	add translation, fix article search oxartnum
 	2017-12-09	1.0.0	module release
