@@ -1,6 +1,6 @@
 {
   "name": "oxid-community/adminsearch",
-  "description": "",
+  "description": "Search OXID admin globally for products, categories, clients, etc.",
   "type": "oxideshop-module",
   "keywords": [
     "oxid",
