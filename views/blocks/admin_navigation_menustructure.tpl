@@ -32,7 +32,8 @@
             },
             match: {
                 enabled: true
-            }, axNumberOfElements: 10,
+            },
+            maxNumberOfElements: 10,
             sort: {
                 enabled: true
             }
