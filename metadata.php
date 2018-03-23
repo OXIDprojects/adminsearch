@@ -22,7 +22,7 @@ $aModule = [
         'de' => 'Globale Suche im Shop-Admin',
         'en' => 'Global search shop admin'
     ],
-    'version'     => '1.0.3',
+    'version'     => '1.0.4',
     'author'      => 'OXID Community',
     'url'         => 'https://github.com/OXIDprojects/adminsearch',
     'extend'      => [
@@ -39,6 +39,7 @@ $aModule = [
         ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowCmsPages', 'type' => 'bool', 'value' => true],
         ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowOrders', 'type' => 'bool', 'value' => true],
         ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowUsers', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowCompanies', 'type' => 'bool', 'value' => true],
         ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowVendors', 'type' => 'bool', 'value' => true],
         ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowManufacturers', 'type' => 'bool', 'value' => true],
         ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowModules', 'type' => 'bool', 'value' => true],
