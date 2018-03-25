@@ -32,7 +32,8 @@
             },
             match: {
                 enabled: true
-            }, axNumberOfElements: 10,
+            },
+            maxNumberOfElements: 10,
             sort: {
                 enabled: true
             }
@@ -66,6 +67,12 @@
             ,{
                 listLocation: "users",
                 header: "[{ oxmultilang ident="OXCOM_ADMINSEARCH_USERS" }]"
+            }
+            [{ /if }]
+            [{ if $oView->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowCompanies") }]
+            ,{
+                listLocation: "companies",
+                header: "[{ oxmultilang ident="OXCOM_ADMINSEARCH_COMPANIES" }]"
             }
             [{ /if }]
             [{ if $oView->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowVendors") }]

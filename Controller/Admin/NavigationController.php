@@ -61,6 +61,9 @@ class NavigationController extends NavigationController_parent
             if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowUsers")) {
                 $aData["users"] = $this->_getOxcomAdminSearchUsers();
             }
+            if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowCompanies")) {
+                $aData["companies"] = $this->_getOxcomAdminSearchCompanies();
+            }
             if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowVendors")) {
                 $aData["vendors"] = $this->_getOxcomAdminSearchVendors();
             }
@@ -148,6 +151,19 @@ class NavigationController extends NavigationController_parent
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxuser");
         $sSql = "SELECT oxid, CONCAT(oxlname, ', ', oxfname, ' (', oxcustnr, ')') FROM $sViewName WHERE CONCAT(oxlname, ' ', oxfname, ' ', oxcustnr, ' ', oxusername) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+
+        return $this->_getOxcomAdminSearchData($sSql, 'admin_user');
+    }
+
+    /**
+     * Gets search company data
+     *
+     * @return array
+     */
+    protected function _getOxcomAdminSearchCompanies()
+    {
+        $sViewName = $this->_sViewNameGenerator->getViewName("oxuser");
+        $sSql = "SELECT oxid, CONCAT(oxcompany, ' (', oxcustnr, ')') FROM $sViewName WHERE CONCAT(oxcompany, ' ', oxcustnr) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'admin_user');
     }
