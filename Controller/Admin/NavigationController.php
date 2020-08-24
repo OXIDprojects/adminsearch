@@ -4,7 +4,7 @@
  * @category  OXID Module
  * @license   MIT License http://opensource.org/licenses/MIT
  * @link      https://github.com/OXIDprojects/adminsearch
- * @version   1.0.3
+ * @version   1.1.0
  */
 
 namespace OxidCommunity\AdminSearch\Controller\Admin;
@@ -137,7 +137,7 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchOrders()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxorder");
-        $sSql = "SELECT oxid, CONCAT('#', oxordernr, ' ', oxbilllname, ', ', oxbillfname) FROM $sViewName WHERE CONCAT(oxbillfname, ' ', oxbilllname, ' ', oxordernr, ' ', oxbillemail) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        $sSql = "SELECT oxid, CONCAT('#', oxordernr, ' ', oxbillfname, ' ', oxbilllname, ' ', oxtrackcode) FROM $sViewName WHERE CONCAT(oxbillfname, ' ', oxbilllname, ' ', oxordernr, ' ', oxbillemail) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'admin_order');
     }
