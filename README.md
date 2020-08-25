@@ -27,6 +27,7 @@ composer require oxid-community/adminsearch
 
 # Changelog
 
+	2020-08-25	1.1.1	improve searches, fix ordersearch
 	2020-08-24	1.1.0	improve ordersearch (add oxtrackcode)
 	2018-03-23  	1.0.4   search companies
 	2017-12-12  	1.0.3   typo module title, fix module search
