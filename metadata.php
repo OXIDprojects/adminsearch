@@ -22,7 +22,7 @@ $aModule = [
         'de' => 'Globale Suche im Shop-Admin',
         'en' => 'Global search shop admin'
     ],
-    'version'     => '1.0.4',
+    'version'     => '1.2.0',
     'author'      => 'OXID Community',
     'url'         => 'https://github.com/OXIDprojects/adminsearch',
     'extend'      => [

@@ -137,7 +137,7 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchOrders()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxorder");
-        $sSql = "SELECT oxid, CONCAT(oxordernr, ' / ', oxbillfname, ' ', oxbilllname, ' / ', oxbillemail, ' / ', oxtrackcode) AS search FROM $sViewName WHERE CONCAT(oxordernr, oxbillfname, oxbilllname, oxbillemail, oxtrackcode) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        $sSql = "SELECT oxid, CONCAT(oxordernr, ' / ', oxbillfname, ' ', oxbilllname, ' / ', oxbillemail, ' / ', oxtrackcode, ' / ', oxremark) AS search FROM $sViewName WHERE CONCAT(oxordernr, oxbillfname, oxbilllname, oxbillemail, oxtrackcode, oxremark) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'admin_order');
     }
