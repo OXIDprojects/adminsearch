@@ -10,7 +10,7 @@
   ],
   "homepage": "https://github.com/OXIDprojects/adminsearch",
   "license": [
-    "GNU"
+    "GPL-3.0-or-later"
   ],
   "autoload": {
     "psr-4": {
