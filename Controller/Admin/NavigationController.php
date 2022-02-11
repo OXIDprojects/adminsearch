@@ -55,9 +55,9 @@ class NavigationController extends NavigationController_parent
             if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowCmsPages")) {
                 $aData["cmspages"] = $this->_getOxcomAdminSearchCmsPages();
             }
-            if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowOrders")) {
-                $aData["orders"] = $this->_getOxcomAdminSearchOrders();
-            }
+            //if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowOrders")) {
+            $aData["orders"] = $this->_getOxcomAdminSearchOrders();
+            //}
             if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowUsers")) {
                 $aData["users"] = $this->_getOxcomAdminSearchUsers();
             }
@@ -98,7 +98,7 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchArticles()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxarticles");
-        $sSql = "SELECT oxid, CONCAT(oxartnum, ' / ', oxtitle, '', oxvarselect) FROM $sViewName WHERE CONCAT(oxartnum, oxtitle, oxvarselect) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        $sSql = "SELECT oxid, CONCAT_WS(' / ', oxartnum, oxtitle, '', oxvarselect) FROM $sViewName WHERE CONCAT_WS(' / ', oxartnum, oxtitle, oxvarselect) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'article');
     }
@@ -137,7 +137,7 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchOrders()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxorder");
-        $sSql = "SELECT oxid, CONCAT(oxordernr, ' / ', oxbillfname, ' ', oxbilllname, ' / ', oxbillemail, ' / ', oxtrackcode, ' / ', oxremark) AS search FROM $sViewName WHERE CONCAT(oxordernr, oxbillfname, oxbilllname, oxbillemail, oxtrackcode, oxremark) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        $sSql = "SELECT oxid, CONCAT_WS(' / ', oxordernr, oxbillfname,  oxbilllname, oxbillemail, oxtrackcode, oxremark) AS search FROM $sViewName WHERE CONCAT_WS(' / ', oxordernr, oxbillfname, oxbilllname, oxbillemail, oxtrackcode, oxremark) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'admin_order');
     }
@@ -150,7 +150,7 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchUsers()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxuser");
-        $sSql = "SELECT oxid, CONCAT(oxcustnr, ' / ', oxfname, ' ', oxlname, ' / ', oxusername, ' / ', oxzip) FROM $sViewName WHERE CONCAT(oxcustnr, oxlname, oxfname, oxusername, oxzip) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        $sSql = "SELECT oxid, CONCAT_WS(' / ', oxcustnr, oxfname,  oxlname, oxusername, oxzip) FROM $sViewName WHERE CONCAT_WS(' / ', oxcustnr, oxlname, oxfname, oxusername, oxzip) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'admin_user');
     }

@@ -5,11 +5,11 @@ Module version for OXID eShop 6. See here for [V4](https://github.com/OXIDprojec
 # Features
 
 	Global admin search for
-	- articles
+	- articles 
 	- categories
 	- cms pages
 	- users
-	- orders
+	- orders (always active)
 	- vendors
 	- manufacturers
 	- modules
@@ -27,7 +27,8 @@ composer require oxid-community/adminsearch
 
 # Changelog
 
-	2020-02-21	1.2.0	add oxremark to ordersearch
+	2022-02-11	1.2.1	fix mysql result if string is too long, set orders always active
+    2020-02-21	1.2.0	add oxremark to ordersearch
 	2020-08-25	1.1.1	improve searches, fix ordersearch
 	2020-08-24	1.1.0	improve ordersearch (add oxtrackcode)
 	2018-03-23  1.0.4   search companies

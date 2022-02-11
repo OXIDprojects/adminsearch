@@ -39,8 +39,12 @@
             }
         },
         categories: [
+            {
+                listLocation: "orders",
+                header: "[{ oxmultilang ident="OXCOM_ADMINSEARCH_ORDERS" }]"
+            }
             [{ if $oView->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowArticles") }]
-                {
+                ,{
                     listLocation: "articles",
                     header: "[{ oxmultilang ident="OXCOM_ADMINSEARCH_ARTICLES" }]"
                 }
@@ -55,12 +59,6 @@
                 ,{
                     listLocation: "cmspages",
                     header: "[{ oxmultilang ident="OXCOM_ADMINSEARCH_CMSPAGES" }]"
-                }
-            [{ /if }]
-            [{ if $oView->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowOrders") }]
-                ,{
-                    listLocation: "orders",
-                    header: "[{ oxmultilang ident="OXCOM_ADMINSEARCH_ORDERS" }]"
                 }
             [{ /if }]
             [{ if $oView->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowUsers") }]
