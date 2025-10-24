@@ -55,9 +55,9 @@ class NavigationController extends NavigationController_parent
             if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowCmsPages")) {
                 $aData["cmspages"] = $this->_getOxcomAdminSearchCmsPages();
             }
-            //if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowOrders")) {
-            $aData["orders"] = $this->_getOxcomAdminSearchOrders();
-            //}
+            if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowOrders")) {
+                $aData["orders"] = $this->_getOxcomAdminSearchOrders();
+            }
             if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowUsers")) {
                 $aData["users"] = $this->_getOxcomAdminSearchUsers();
             }
@@ -98,7 +98,12 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchArticles()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxarticles");
-        $sSql = "SELECT oxid, CONCAT_WS(' / ', oxartnum, oxtitle, '', oxvarselect) FROM $sViewName WHERE CONCAT_WS(' / ', oxartnum, oxtitle, oxvarselect) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        $aFields = $this->getOxcomAdminSearchConfigParam("aOxComAdminSearchArticleFields");
+        if (!is_array($aFields)) {
+            $aFields = ['oxartnum', 'oxtitle', 'oxvarselect'];
+        }
+        $sFieldsList = implode(', ', $aFields);
+        $sSql = "SELECT oxid, CONCAT_WS(' / ', $sFieldsList) FROM $sViewName WHERE CONCAT_WS(' / ', $sFieldsList) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'article');
     }
@@ -111,7 +116,12 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchCategories()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxcategories");
-        $sSql = "SELECT oxid, oxtitle FROM $sViewName WHERE oxtitle LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        $aFields = $this->getOxcomAdminSearchConfigParam("aOxComAdminSearchCategoryFields");
+        if (!is_array($aFields)) {
+            $aFields = ['oxtitle'];
+        }
+        $sFieldsList = implode(', ', $aFields);
+        $sSql = "SELECT oxid, $sFieldsList FROM $sViewName WHERE $sFieldsList LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'category');
     }
@@ -124,7 +134,12 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchCmsPages()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxcontents");
-        $sSql = "SELECT oxid, oxtitle FROM $sViewName WHERE oxtitle LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        $aFields = $this->getOxcomAdminSearchConfigParam("aOxComAdminSearchCmsPageFields");
+        if (!is_array($aFields)) {
+            $aFields = ['oxtitle'];
+        }
+        $sFieldsList = implode(', ', $aFields);
+        $sSql = "SELECT oxid, $sFieldsList FROM $sViewName WHERE $sFieldsList LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'admin_content');
     }
@@ -137,7 +152,12 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchOrders()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxorder");
-        $sSql = "SELECT oxid, CONCAT_WS(' / ', oxordernr, oxbillfname,  oxbilllname, oxbillemail, oxtrackcode, oxremark) AS search FROM $sViewName WHERE CONCAT_WS(' / ', oxordernr, oxbillfname, oxbilllname, oxbillemail, oxtrackcode, oxremark) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        $aFields = $this->getOxcomAdminSearchConfigParam("aOxComAdminSearchOrderFields");
+        if (!is_array($aFields)) {
+            $aFields = ['oxordernr', 'oxbillfname', 'oxbilllname', 'oxbillemail', 'oxtrackcode', 'oxremark'];
+        }
+        $sFieldsList = implode(', ', $aFields);
+        $sSql = "SELECT oxid, CONCAT_WS(' / ', $sFieldsList) AS search FROM $sViewName WHERE CONCAT_WS(' / ', $sFieldsList) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'admin_order');
     }
@@ -150,7 +170,12 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchUsers()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxuser");
-        $sSql = "SELECT oxid, CONCAT_WS(' / ', oxcustnr, oxfname,  oxlname, oxusername, oxzip) FROM $sViewName WHERE CONCAT_WS(' / ', oxcustnr, oxlname, oxfname, oxusername, oxzip) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        $aFields = $this->getOxcomAdminSearchConfigParam("aOxComAdminSearchUserFields");
+        if (!is_array($aFields)) {
+            $aFields = ['oxcustnr', 'oxfname', 'oxlname', 'oxusername', 'oxzip'];
+        }
+        $sFieldsList = implode(', ', $aFields);
+        $sSql = "SELECT oxid, CONCAT_WS(' / ', $sFieldsList) FROM $sViewName WHERE CONCAT_WS(' / ', $sFieldsList) LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'admin_user');
     }
@@ -163,7 +188,12 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchCompanies()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxuser");
-        $sSql = "SELECT oxid, oxcompany FROM $sViewName WHERE oxcompany LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        $aFields = $this->getOxcomAdminSearchConfigParam("aOxComAdminSearchCompanyFields");
+        if (!is_array($aFields)) {
+            $aFields = ['oxcompany'];
+        }
+        $sFieldsList = implode(', ', $aFields);
+        $sSql = "SELECT oxid, $sFieldsList FROM $sViewName WHERE $sFieldsList LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'admin_user');
     }
@@ -176,7 +206,12 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchVendors()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxvendor");
-        $sSql = "SELECT oxid, oxtitle FROM $sViewName WHERE oxtitle LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        $aFields = $this->getOxcomAdminSearchConfigParam("aOxComAdminSearchVendorFields");
+        if (!is_array($aFields)) {
+            $aFields = ['oxtitle'];
+        }
+        $sFieldsList = implode(', ', $aFields);
+        $sSql = "SELECT oxid, $sFieldsList FROM $sViewName WHERE $sFieldsList LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'vendor');
     }
@@ -189,7 +224,12 @@ class NavigationController extends NavigationController_parent
     protected function _getOxcomAdminSearchManufacturers()
     {
         $sViewName = $this->_sViewNameGenerator->getViewName("oxmanufacturers");
-        $sSql = "SELECT oxid, oxtitle FROM $sViewName WHERE oxtitle LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
+        $aFields = $this->getOxcomAdminSearchConfigParam("aOxComAdminSearchManufacturerFields");
+        if (!is_array($aFields)) {
+            $aFields = ['oxtitle'];
+        }
+        $sFieldsList = implode(', ', $aFields);
+        $sSql = "SELECT oxid, $sFieldsList FROM $sViewName WHERE $sFieldsList LIKE " . \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->quote('%' . $this->_sQueryName . '%');
 
         return $this->_getOxcomAdminSearchData($sSql, 'manufacturer');
     }

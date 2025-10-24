@@ -22,7 +22,7 @@ $aModule = [
         'de' => 'Globale Suche im Shop-Admin',
         'en' => 'Global search shop admin'
     ],
-    'version'     => '1.2.1',
+    'version'     => '1.3.0',
     'author'      => 'OXID Community',
     'url'         => 'https://github.com/OXIDprojects/adminsearch',
     'extend'      => [
@@ -35,13 +35,21 @@ $aModule = [
     ],
     'settings'    => [
         ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowArticles', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'aOxComAdminSearchArticleFields', 'type' => 'arr', 'value' => ['oxartnum', 'oxtitle', 'oxvarselect']],
         ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowCategories', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'aOxComAdminSearchCategoryFields', 'type' => 'arr', 'value' => ['oxtitle']],
         ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowCmsPages', 'type' => 'bool', 'value' => true],
-        //['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowOrders', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'aOxComAdminSearchCmsPageFields', 'type' => 'arr', 'value' => ['oxtitle']],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowOrders', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'aOxComAdminSearchOrderFields', 'type' => 'arr', 'value' => ['oxordernr', 'oxbillfname', 'oxbilllname', 'oxbillemail', 'oxtrackcode', 'oxremark']],
         ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowUsers', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'aOxComAdminSearchUserFields', 'type' => 'arr', 'value' => ['oxcustnr', 'oxfname', 'oxlname', 'oxusername', 'oxzip']],
         ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowCompanies', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'aOxComAdminSearchCompanyFields', 'type' => 'arr', 'value' => ['oxcompany']],
         ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowVendors', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'aOxComAdminSearchVendorFields', 'type' => 'arr', 'value' => ['oxtitle']],
         ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowManufacturers', 'type' => 'bool', 'value' => true],
+        ['group' => 'oxcom_adminsearch_main', 'name' => 'aOxComAdminSearchManufacturerFields', 'type' => 'arr', 'value' => ['oxtitle']],
         ['group' => 'oxcom_adminsearch_main', 'name' => 'blOxComAdminSearchShowModules', 'type' => 'bool', 'value' => true],
     ],
 ];
