@@ -27,6 +27,7 @@ composer require oxid-community/adminsearch
 
 # Changelog
 
+	2025-12-08	1.3.1	bugfixing missing suggestions if "show orders" is deactivated
 	2025-10-24	1.3.0	module configuration for all searchable fields
 	2022-02-11	1.2.1	fix mysql result if string is too long, set orders always active
     2020-02-21	1.2.0	add oxremark to ordersearch

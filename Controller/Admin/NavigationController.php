@@ -46,6 +46,10 @@ class NavigationController extends NavigationController_parent
     {
         $aData = [];
         if (strlen($this->_sQueryName) > 2) {
+            // "Orders" is always required in the array, otherwise the suggestion is not showing up if you deactivate
+            // "blOxComAdminSearchShowOrders" in the module settings.
+            $aData["orders"] = $this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowOrders") ? $this->_getOxcomAdminSearchOrders() : [];
+
             if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowArticles")) {
                 $aData["articles"] = $this->_getOxcomAdminSearchArticles();
             }
@@ -54,9 +58,6 @@ class NavigationController extends NavigationController_parent
             }
             if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowCmsPages")) {
                 $aData["cmspages"] = $this->_getOxcomAdminSearchCmsPages();
-            }
-            if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowOrders")) {
-                $aData["orders"] = $this->_getOxcomAdminSearchOrders();
             }
             if ($this->getOxcomAdminSearchConfigParam("blOxComAdminSearchShowUsers")) {
                 $aData["users"] = $this->_getOxcomAdminSearchUsers();
